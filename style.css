@@ -127,6 +127,10 @@ main,
   padding: clamp(3rem, 10vw, 7rem) 0 clamp(2.5rem, 8vw, 5rem);
 }
 
+.hero h1 {
+  color: #9BFFFF;
+}
+
 .intro-label,
 .eyebrow {
   margin: 0;
