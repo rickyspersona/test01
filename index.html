@@ -4,9 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ricky | Personal Landing Page</title>
+  <script>
+    (function () {
+      var storedTheme;
+
+      try {
+        storedTheme = localStorage.getItem("theme");
+      } catch (error) {
+        storedTheme = null;
+      }
+
+      var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+      var initialTheme = storedTheme === "light" || storedTheme === "dark"
+        ? storedTheme
+        : prefersLight ? "light" : "dark";
+
+      window.initialTheme = initialTheme;
+
+      if (initialTheme !== "light") {
+        return;
+      }
+
+      function applyLightTheme() {
+        if (!document.body) {
+          return false;
+        }
+
+        document.body.classList.add("light-theme");
+        return true;
+      }
+
+      if (!applyLightTheme()) {
+        new MutationObserver(function (_mutations, observer) {
+          if (applyLightTheme()) {
+            observer.disconnect();
+          }
+        }).observe(document.documentElement, { childList: true });
+      }
+    }());
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#about">Skip to content</a>
   <header class="site-header">
     <nav class="site-nav" aria-label="Primary navigation">
       <a class="logo" href="#top">Ricky</a>
@@ -64,11 +104,11 @@
         <p class="eyebrow">Contact</p>
         <h2 id="contact-title">Find Ricky online</h2>
       </div>
-      <div class="contact-links" aria-label="Contact links">
+      <nav class="contact-links" aria-label="Contact links">
         <a href="#" aria-label="Ricky on GitHub">GitHub</a>
         <a href="mailto:ricky@example.com">Email</a>
         <a href="#" aria-label="Ricky on LinkedIn">LinkedIn</a>
-      </div>
+      </nav>
     </section>
   </main>
 
